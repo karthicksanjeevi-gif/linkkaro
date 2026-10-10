@@ -3,6 +3,7 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import BrandLogo from './BrandLogo';
 
 export default function Layout() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -26,13 +27,9 @@ export default function Layout() {
         className="bg-emerald-700 text-white shadow-md sticky top-0 z-50"
       >
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 cursor-pointer">
-            <motion.div 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-amber-400 text-slate-900 font-extrabold p-2 rounded-xl text-xl tracking-wider shadow"
-            >
-              LK
+          <Link to="/" className="flex items-center gap-3 cursor-pointer">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="shrink-0">
+              <BrandLogo size={42} className="drop-shadow-sm" />
             </motion.div>
             <div>
               <span className="text-2xl font-black tracking-tight block leading-none">LinkKaro</span>

@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { getSupabaseClient } from '../supabase';
 import { motion } from 'framer-motion';
 import { UserCheck, Briefcase, Eye, EyeOff } from 'lucide-react';
+import BrandLogo from '../components/BrandLogo';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -68,9 +69,7 @@ export default function Register() {
         className="sm:mx-auto sm:w-full sm:max-w-md text-center"
       >
         <div className="flex justify-center mb-4">
-          <div className="bg-amber-400 text-slate-900 font-extrabold p-3 rounded-xl text-3xl tracking-wider shadow-lg inline-block">
-            LK
-          </div>
+          <BrandLogo size={90} className="drop-shadow-lg" />
         </div>
         <h2 className="mt-2 text-center text-3xl font-extrabold text-slate-900">
           Join LinkKaro Today
