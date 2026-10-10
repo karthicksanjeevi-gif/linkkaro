@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { supabase } from '../supabase';
+import { getSupabaseClient } from '../supabase';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Eye, EyeOff } from 'lucide-react';
 
@@ -17,7 +17,7 @@ export default function Login() {
     setError('');
     setLoading(true);
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error } = await getSupabaseClient().auth.signInWithPassword({
         email,
         password,
       });

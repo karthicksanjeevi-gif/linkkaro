@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { supabase } from '../supabase';
+import { getSupabaseClient } from '../supabase';
 import { User as SupabaseUser } from '@supabase/supabase-js';
 import { UserProfile } from '../types';
 
@@ -27,7 +27,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Check active sessions and sets the user
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    getSupabaseClient().auth.getSession().then(({ data: { session } }) => {
       setCurrentUser(session?.user ?? null);
       if (session?.user) {
         fetchUserData(session.user.id);
@@ -37,7 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
 
     // Listen for changes on auth state (sign in, sign out, etc.)
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+    const { data: { subscription } } = getSupabaseClient().auth.onAuthStateChange(async (_event, session) => {
       setCurrentUser(session?.user ?? null);
       if (session?.user) {
         await fetchUserData(session.user.id);
@@ -54,7 +54,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const fetchUserData = async (userId: string) => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await getSupabaseClient()
         .from('users')
         .select('*')
         .eq('uid', userId)
@@ -74,7 +74,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const logout = async () => {
-    await supabase.auth.signOut();
+    await getSupabaseClient().auth.signOut();
   };
 
   const value = {

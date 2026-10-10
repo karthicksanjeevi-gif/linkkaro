@@ -40,6 +40,15 @@ LinkKaro is a job-connect platform concept for rural and semi-urban communities 
    npm run dev
    ```
 
+## Deploying to Vercel
+
+In the Vercel project, open **Settings > Environment Variables** and add
+`VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` with the values from your
+Supabase project. Enable them for the environments you deploy (Production,
+Preview, and/or Development), then redeploy so Vite can include them in the
+build. These values are read at build time; adding them after a deployment
+requires a new deployment.
+
 ## Available scripts
 
 - `npm run dev` - Start the Vite development server

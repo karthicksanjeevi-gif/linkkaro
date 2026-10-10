@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { motion } from 'framer-motion';
 import { Check, ShieldAlert, User, Briefcase, Edit2, Save, X } from 'lucide-react';
-import { supabase } from '../supabase';
+import { getSupabaseClient } from '../supabase';
 
 export default function Dashboard() {
   const { userData, currentUser } = useAuth();
@@ -22,7 +22,7 @@ export default function Dashboard() {
   const handleSave = async () => {
     setLoading(true);
     try {
-      const { error } = await supabase
+      const { error } = await getSupabaseClient()
         .from('users')
         .update({ phone, bio })
         .eq('uid', currentUser.id);

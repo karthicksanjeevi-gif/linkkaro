@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { supabase } from '../supabase';
+import { getSupabaseClient } from '../supabase';
 import { motion } from 'framer-motion';
 import { UserCheck, Briefcase, Eye, EyeOff } from 'lucide-react';
 
@@ -21,7 +21,7 @@ export default function Register() {
     
     try {
       // 1. Create auth user
-      const { data: authData, error: authError } = await supabase.auth.signUp({
+      const { data: authData, error: authError } = await getSupabaseClient().auth.signUp({
         email,
         password,
       });
@@ -32,7 +32,7 @@ export default function Register() {
       if (!user) throw new Error("User creation failed");
 
       // 2. Create user document in Supabase Database (public.users table)
-      const { error: dbError } = await supabase
+      const { error: dbError } = await getSupabaseClient()
         .from('users')
         .insert([
           {
