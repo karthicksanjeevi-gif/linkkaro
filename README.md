@@ -58,3 +58,5 @@ requires a new deployment.
 ## Environment and security
 
 `.env` files are ignored by Git. Do not commit credentials or a Supabase service-role key. The anon key is used in the browser, so protect all database access with appropriate Supabase Row Level Security policies.
+
+The public landing page can be previewed without Supabase configuration. Sign-in, registration, and profile features require the Vercel environment variables above.

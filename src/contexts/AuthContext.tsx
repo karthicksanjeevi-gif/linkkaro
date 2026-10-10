@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { getSupabaseClient } from '../supabase';
+import { getSupabaseClient, isSupabaseConfigured } from '../supabase';
 import { User as SupabaseUser } from '@supabase/supabase-js';
 import { UserProfile } from '../types';
 
@@ -26,6 +26,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!isSupabaseConfigured) {
+      setLoading(false);
+      return;
+    }
+
     // Check active sessions and sets the user
     getSupabaseClient().auth.getSession().then(({ data: { session } }) => {
       setCurrentUser(session?.user ?? null);
